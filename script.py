@@ -2,13 +2,21 @@
 #!/usr/bin/python
 import os, os.path
 import re, sys
+import pxssh
+
+#constants
+CONST_DIR_AF = "/home/linux/ieng6/cs8af/"
+CONST_GRADE_DIR = "/psa0_grading/"
+CONST_TAR = "/psa0.gz.tar"
+CONST_STUD_EMAIL_PATH = "@ieng9.ucsd.edu:psa0/psa0.gz.tar"
+CONST_TUR_EMAIL_PATH = "@ieng9.ucsd.edu:psa0_grading/"
 
 def isDigit(s):
     return re.search("[^0-9]",s) is None
 def isLetter(s):
     return re.search("[^a-z]",s) is None
 
-dirs = os.listdir("/home/linux/ieng6/cs8af")
+dirs = os.listdir(CONST_DIR_AF)
 tutors = []
 students = []
 #look at these dirs
@@ -21,24 +29,38 @@ for dir_i in dirs:
 print ("this many tutors:", len(tutors))
 print ("this many students:", len(students))
 
-#for traking which tutor
 track = 0
 
-#to make dir under tutors' accounts for grading
-#path = ("/home/linux/ieng6/cs8af/"+"cs8afzz/"+"psa0_grading")
-#os.mkdir (path);
+login(tutors[track])
+path = (CONST_DIR_AF+tutors[track]+CONST_GRADE_DIR)
+os.mkdir (path);
+
+hw_count = 0
 
 for x in students:
-    path = ("/home/linux/ieng6/cs8af/"+"cs8afzz/"+"test.java")
+    path = (CONST_DIR_AF + students[x] + CONST_TAR)
     check = os.path.isfile(path)
     if check:
-        #create account in ta account with name of the student's account
-        #os.system("scp cs8afzz@ieng9.ucsd.edu:/test.java cs8af46@ieng9.ucsd.edu:/psa0_grading")
-        os.system("scp cs8afzz@ieng9.ucsd.edu:/test.java .")
+        hw_count = hw_count+1
+    else:
+        students.remove(students[x])
+
+
+avg = len(students)/len(tutors)
+reminder = len(students) - (avg* len(tutors))
+
+for x in students
+        #create stud folder
+        path = (CONST_DIR_AF + tutors[track]+CONST_GRADE_DIR+student[x])
+        os.mkdir (path)    
+        #scp    
+        os.system("scp "+student[x]+ CONST_SUTD_EMAIL_PATH + tutors[track]+CONST_TUR_EMAIL_PATH + students[x])
         #tar
-        count = os.listdir("/home/linux/ieng6/cs8af/"+"cs8af46")
-        if (len(count)>7):
+        os.system("tar xfvz " + CONST_DIR_AF + tutors[track]+"/"+students[x]+CONST__TAR)
+        count = os.listdir(CONST_DIR_AF+tutors[track])
+        if (len(count)>avg):
             track = track +1
-
- 
-
+            login(tutors[track])
+            path = (CONST_DIR_AF + tutors[track] + CONST_GRADE_DIR)
+            os.makir (path)
+        os.makir (path)
