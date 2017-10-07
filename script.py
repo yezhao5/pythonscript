@@ -1,5 +1,6 @@
 #author Ye Zhao 
 #!/usr/bin/python
+
 import os, os.path
 import re, sys
 import pxssh
@@ -8,13 +9,24 @@ import pxssh
 CONST_DIR_AF = "/home/linux/ieng6/cs8af/"
 CONST_GRADE_DIR = "/psa0_grading/"
 CONST_TAR = "/psa0.gz.tar"
-CONST_STUD_EMAIL_PATH = "@ieng9.ucsd.edu:psa0/psa0.gz.tar"
-CONST_TUR_EMAIL_PATH = "@ieng9.ucsd.edu:psa0_grading/"
+CONST_ST_SCP_PATH = "@ieng9.ucsd.edu:psa0/psa0.gz.tar"
+CONST_TU_SCP_PATH = "@ieng9.ucsd.edu:psa0_grading/"
 
 def isDigit(s):
     return re.search("[^0-9]",s) is None
 def isLetter(s):
     return re.search("[^a-z]",s) is None
+
+log = None
+
+def login(s):
+    log = pxssh.pxssh()
+    if not:
+        print ("ssh failed with "+ s)
+        return False 
+    else:
+        print ("ssh success with " +s)
+        
 
 dirs = os.listdir(CONST_DIR_AF)
 tutors = []
@@ -48,19 +60,25 @@ for x in students:
 
 avg = len(students)/len(tutors)
 reminder = len(students) - (avg* len(tutors))
+triger = len(tutor)/reminder + 1
+TRIGER = triger
 
 for x in students
         #create stud folder
         path = (CONST_DIR_AF + tutors[track]+CONST_GRADE_DIR+student[x])
         os.mkdir (path)    
         #scp    
-        os.system("scp "+student[x]+ CONST_SUTD_EMAIL_PATH + tutors[track]+CONST_TUR_EMAIL_PATH + students[x])
+        log.sendline("scp "+student[x]+ CONST_SU_SCP_PATH + tutors[track]+CONST_TU_SCP_PATH + students[x])
         #tar
-        os.system("tar xfvz " + CONST_DIR_AF + tutors[track]+"/"+students[x]+CONST__TAR)
+        log.sendline("tar xfvz " + CONST_DIR_AF + tutors[track]+"/"+students[x]+CONST_TAR)
         count = os.listdir(CONST_DIR_AF+tutors[track])
         if (len(count)>avg):
-            track = track +1
-            login(tutors[track])
-            path = (CONST_DIR_AF + tutors[track] + CONST_GRADE_DIR)
-            os.makir (path)
-        os.makir (path)
+            if not triger = 1:
+                track = track +1
+                log.logout()
+                login(tutors[track])
+                path = (CONST_DIR_AF + tutors[track] + CONST_GRADE_DIR)
+                log.sendline("makir "+ path)
+                triger = triger-1
+            else: 
+                triger = TRIGER
