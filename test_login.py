@@ -2,12 +2,12 @@
 
 #!usr/bin.python
 
-import pxssh
+from pexpect import pxssh
 
 s = pxssh.pxssh()
 
-if not s.login ('5900','cs8af8','60wnUdnR'):
-    print "FAIL"
+if not s.login ('cs8af46@ieng6.ucsd.edu','cs8af15','60wnUndR'):
+    print ("FAIL")
 else:
     print ("SUCCESS")
     s.sendline('mkdir pa0')
