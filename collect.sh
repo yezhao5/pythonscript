@@ -1,8 +1,6 @@
 #!/bin/bash
 
-### VARS
-clas='cs30x'
-### END VARS
+clas='cs8af'
 
 if [ ! "$1" ]
 then
@@ -15,13 +13,11 @@ then
     mkdir ${1}.turnin
 fi
 
-
-#for student in `ls ../../ | grep "${clas}[a-x][a-z]"`
-for student in `ls ../../ | grep "${clas}[a-x][a-z]"`
+for student in `ls ../ | grep "${clas}[a-z][a-z]"`
 do
-    if [ -e ../../$student/..${1}.tar.gz ]
+    if [ -e ../$student/..${1}.tar.gz ]
     then
-	cp -p ../../$student/..${1}.tar.gz ${1}.turnin/$student.${1}.tar.gz
+	cp ../$student/..${1}.tar.gz ${1}.turnin/$student.${1}.tar.gz
     else
 	echo $student did not submit ${1}
     fi
