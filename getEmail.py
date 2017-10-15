@@ -6,6 +6,7 @@
 import sys, os
 import subprocess
 import csv
+import tempfile
 
 studList = []
 #student account from grading sheet
@@ -42,15 +43,19 @@ for i in range (0, col)
         proc.wait()
         tempf.seek(0)
         output = tempf.read()
+        sys.path.insert(0,'/home/linux/ieng6/cs8af/cs8af46/')
         print(output)
-        name = output.split('Name:')[1]
-        name = name.split('Directory:')[0]
-        first, last = s.split
-    print("first: "+first+"last: "+last)
-    
-    name = last+", "first
+        first = output.split()[3]
+        last = output.split()[4]
+        first = str(first)
+        last = str(last)
 
-    print name
+        first = first[2:len(first)-1]
+        last = last[2:len(last)-1]
+
+
+    name = last+", "+first
+    print (name)
     email = stud[name]
 
     csvfile.write(name+','+email+'\n')
